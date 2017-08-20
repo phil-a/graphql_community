@@ -10,6 +10,8 @@ defmodule GraphqlCommunity.Web.Schema do
   end
 
   query do
-    field :all_links, non_null(list_of(non_null(:link)))
+    field :all_links, non_null(list_of(non_null(:link))) do
+      resolve &Web.NewsResolver.all_links/3
+    end
   end
 end
