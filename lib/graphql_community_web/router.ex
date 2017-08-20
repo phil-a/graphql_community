@@ -5,7 +5,13 @@ defmodule GraphqlCommunityWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", GraphqlCommunityWeb do
+  scope "/" do
     pipe_through :api
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+    schema: GraphqlCommunity.Web.Schema,
+    interface: :simple,
+    context: %{pubsub: GraphqlCommunity.Web.Endpoint}
   end
+
 end
